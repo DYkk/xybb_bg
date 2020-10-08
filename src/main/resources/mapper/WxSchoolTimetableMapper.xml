@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wx.xybb.mapper.WxSchoolTimetableMapper">
+  <resultMap id="BaseResultMap" type="com.wx.xybb.entity.WxSchoolTimetable">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="timetable" jdbcType="VARCHAR" property="timetable" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="rub_lesson" jdbcType="INTEGER" property="rubLesson" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, timetable, `name`, student_id, rub_lesson, `time`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_school_timetable
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wx_school_timetable
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wx.xybb.entity.WxSchoolTimetable">
+    insert into wx_school_timetable (id, timetable, `name`, 
+      student_id, rub_lesson, `time`
+      )
+    values (#{id,jdbcType=BIGINT}, #{timetable,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{studentId,jdbcType=VARCHAR}, #{rubLesson,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wx.xybb.entity.WxSchoolTimetable">
+    insert into wx_school_timetable
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="timetable != null">
+        timetable,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="rubLesson != null">
+        rub_lesson,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="timetable != null">
+        #{timetable,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="rubLesson != null">
+        #{rubLesson,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wx.xybb.entity.WxSchoolTimetable">
+    update wx_school_timetable
+    <set>
+      <if test="timetable != null">
+        timetable = #{timetable,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="rubLesson != null">
+        rub_lesson = #{rubLesson,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        `time` = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wx.xybb.entity.WxSchoolTimetable">
+    update wx_school_timetable
+    set timetable = #{timetable,jdbcType=VARCHAR},
+      `name` = #{name,jdbcType=VARCHAR},
+      student_id = #{studentId,jdbcType=VARCHAR},
+      rub_lesson = #{rubLesson,jdbcType=INTEGER},
+      `time` = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+
+  <select id="selectByName" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from wx_school_timetable
+    where name = #{name}
+    and rub_lesson = 0
+    LIMIT 1
+  </select>
+
+  <select id="selectCourseById" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from wx_school_timetable
+    where student_id = #{studentId,jdbcType=VARCHAR}
+    and rub_lesson = 0
+    LIMIT 1
+  </select>
+
+  <select id="selectById" resultType="java.lang.Integer">
+    select rub_lesson
+    from wx_school_timetable
+    where student_id = #{studentId}
+    LIMIT 1
+  </select>
+</mapper>

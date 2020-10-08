@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wx.xybb.mapper.WxTotalScoreMapper">
+  <resultMap id="BaseResultMap" type="com.wx.xybb.entity.WxTotalScore">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="student_id" jdbcType="VARCHAR" property="studentId" />
+    <result column="jpa" jdbcType="REAL" property="jpa" />
+    <result column="jpa_rank" jdbcType="INTEGER" property="jpaRank" />
+    <result column="number_people" jdbcType="INTEGER" property="numberPeople" />
+    <result column="grade" jdbcType="VARCHAR" property="grade" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, student_id, jpa, jpa_rank, number_people, grade
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from wx_total_score
+    where student_id = #{studentId}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from wx_total_score
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wx.xybb.entity.WxTotalScore">
+    insert into wx_total_score (id, student_id, jpa, 
+      jpa_rank, number_people, grade
+      )
+    values (#{id,jdbcType=BIGINT}, #{studentId,jdbcType=VARCHAR}, #{jpa,jdbcType=REAL}, 
+      #{jpaRank,jdbcType=INTEGER}, #{numberPeople,jdbcType=INTEGER}, #{grade,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wx.xybb.entity.WxTotalScore">
+    insert into wx_total_score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="studentId != null">
+        student_id,
+      </if>
+      <if test="jpa != null">
+        jpa,
+      </if>
+      <if test="jpaRank != null">
+        jpa_rank,
+      </if>
+      <if test="numberPeople != null">
+        number_people,
+      </if>
+      <if test="grade != null">
+        grade,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="studentId != null">
+        #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="jpa != null">
+        #{jpa,jdbcType=REAL},
+      </if>
+      <if test="jpaRank != null">
+        #{jpaRank,jdbcType=INTEGER},
+      </if>
+      <if test="numberPeople != null">
+        #{numberPeople,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        #{grade,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wx.xybb.entity.WxTotalScore">
+    update wx_total_score
+    <set>
+      <if test="jpa != null">
+        jpa = #{jpa,jdbcType=REAL},
+      </if>
+      <if test="jpaRank != null">
+        jpa_rank = #{jpaRank,jdbcType=INTEGER},
+      </if>
+      <if test="numberPeople != null">
+        number_people = #{numberPeople,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where student_id = #{studentId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wx.xybb.entity.WxTotalScore">
+    update wx_total_score
+    set student_id = #{studentId,jdbcType=VARCHAR},
+      jpa = #{jpa,jdbcType=REAL},
+      jpa_rank = #{jpaRank,jdbcType=INTEGER},
+      number_people = #{numberPeople,jdbcType=INTEGER},
+      grade = #{grade,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <!--对班级进行分组-->
+  <select id="groupByGrade" resultType="java.lang.String">
+    SELECT grade
+    FROM wx_total_score
+    GROUP BY grade
+  </select>
+
+  <!--按照班级进行排序-->
+  <select id="selectByGrade" resultType="java.lang.Long">
+    select id
+    from wx_total_score
+    WHERE grade =  #{grade}
+    ORDER BY jpa DESC
+  </select>
+
+  <!--通过id更新排名-->
+  <update id="updateById" parameterType="com.wx.xybb.entity.WxTotalScore">
+    update wx_total_score
+    <set>
+      <if test="studentId != null">
+        student_id = #{studentId,jdbcType=VARCHAR},
+      </if>
+      <if test="jpa != null">
+        jpa = #{jpa,jdbcType=REAL},
+      </if>
+      <if test="jpaRank != null">
+        jpa_rank = #{jpaRank,jdbcType=INTEGER},
+      </if>
+      <if test="numberPeople != null">
+        number_people = #{numberPeople,jdbcType=INTEGER},
+      </if>
+      <if test="grade != null">
+        grade = #{grade,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wx.xybb.mapper.TopicMessageMapper">
+  <resultMap id="BaseResultMap" type="com.wx.xybb.entity.TopicMessage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="receiver" jdbcType="VARCHAR" property="receiver" />
+    <result column="tid" jdbcType="BIGINT" property="tid" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="conent" jdbcType="VARCHAR" property="conent" />
+    <result column="view" jdbcType="INTEGER" property="view" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+    <result column="detail_type" jdbcType="INTEGER" property="detailType" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, receiver, tid, title, conent, `view`, priority, detail_type, `time`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from topic_message
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from topic_message
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wx.xybb.entity.TopicMessage">
+    insert into topic_message (id, receiver, tid, 
+      title, conent, `view`, 
+      priority, detail_type, `time`
+      )
+    values (#{id,jdbcType=BIGINT}, #{receiver,jdbcType=VARCHAR}, #{tid,jdbcType=BIGINT}, 
+      #{title,jdbcType=VARCHAR}, #{conent,jdbcType=VARCHAR}, #{view,jdbcType=INTEGER}, 
+      #{priority,jdbcType=INTEGER}, #{detailType,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wx.xybb.entity.TopicMessage">
+    insert into topic_message
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="receiver != null">
+        receiver,
+      </if>
+      <if test="tid != null">
+        tid,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="conent != null">
+        conent,
+      </if>
+      <if test="view != null">
+        `view`,
+      </if>
+      <if test="priority != null">
+        priority,
+      </if>
+      <if test="detailType != null">
+        detail_type,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="receiver != null">
+        #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        #{tid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="conent != null">
+        #{conent,jdbcType=VARCHAR},
+      </if>
+      <if test="view != null">
+        #{view,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="detailType != null">
+        #{detailType,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wx.xybb.entity.TopicMessage">
+    update topic_message
+    <set>
+      <if test="receiver != null">
+        receiver = #{receiver,jdbcType=VARCHAR},
+      </if>
+      <if test="tid != null">
+        tid = #{tid,jdbcType=BIGINT},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="conent != null">
+        conent = #{conent,jdbcType=VARCHAR},
+      </if>
+      <if test="view != null">
+        `view` = #{view,jdbcType=INTEGER},
+      </if>
+      <if test="priority != null">
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="detailType != null">
+        detail_type = #{detailType,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        `time` = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wx.xybb.entity.TopicMessage">
+    update topic_message
+    set receiver = #{receiver,jdbcType=VARCHAR},
+      tid = #{tid,jdbcType=BIGINT},
+      title = #{title,jdbcType=VARCHAR},
+      conent = #{conent,jdbcType=VARCHAR},
+      `view` = #{view,jdbcType=INTEGER},
+      priority = #{priority,jdbcType=INTEGER},
+      detail_type = #{detailType,jdbcType=INTEGER},
+      `time` = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

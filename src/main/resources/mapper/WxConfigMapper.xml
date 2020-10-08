@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wx.xybb.mapper.WxConfigMapper">
+  <resultMap id="BaseResultMap" type="com.wx.xybb.entity.WxConfig">
+    <result column="config_id" jdbcType="BIGINT" property="configId" />
+    <result column="config_name" jdbcType="VARCHAR" property="configName" />
+    <result column="config_value" jdbcType="VARCHAR" property="configValue" />
+    <result column="config_explain" jdbcType="VARCHAR" property="configExplain" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    config_id, config_name, config_value, config_explain
+  </sql>
+  <insert id="insert" parameterType="com.wx.xybb.entity.WxConfig">
+    insert into wx_config (config_id, config_name, config_value, 
+      config_explain)
+    values (#{configId,jdbcType=BIGINT}, #{configName,jdbcType=VARCHAR}, #{configValue,jdbcType=VARCHAR}, 
+      #{configExplain,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wx.xybb.entity.WxConfig">
+    insert into wx_config
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        config_id,
+      </if>
+      <if test="configName != null">
+        config_name,
+      </if>
+      <if test="configValue != null">
+        config_value,
+      </if>
+      <if test="configExplain != null">
+        config_explain,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="configId != null">
+        #{configId,jdbcType=BIGINT},
+      </if>
+      <if test="configName != null">
+        #{configName,jdbcType=VARCHAR},
+      </if>
+      <if test="configValue != null">
+        #{configValue,jdbcType=VARCHAR},
+      </if>
+      <if test="configExplain != null">
+        #{configExplain,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <!--获取校历图片链接-->
+  <select id="selectSchoolTime" resultType="java.lang.String">
+    select config_value
+    from wx_config
+    where config_id = 3
+  </select>
+  <!--获取作息表链接-->
+  <select id="selectTime" resultType="java.lang.String">
+    select config_value
+    from wx_config
+    where config_id = 4
+  </select>
+  <!--获取公告-->
+  <select id="selectNotice" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from wx_config
+    where config_id = 5
+  </select>
+</mapper>

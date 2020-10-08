@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wx.xybb.mapper.TopicInvitationMapper">
+  <resultMap id="BaseResultMap" type="com.wx.xybb.entity.TopicInvitation">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="uid" jdbcType="BIGINT" property="uid" />
+    <result column="classity_id" jdbcType="BIGINT" property="classityId" />
+    <result column="content" jdbcType="VARCHAR" property="content" />
+    <result column="imgs" jdbcType="VARCHAR" property="imgs" />
+    <result column="praise_number" jdbcType="INTEGER" property="praiseNumber" />
+    <result column="comment_number" jdbcType="INTEGER" property="commentNumber" />
+    <result column="view_number" jdbcType="INTEGER" property="viewNumber" />
+    <result column="anonymous" jdbcType="INTEGER" property="anonymous" />
+    <result column="superior" jdbcType="INTEGER" property="superior" />
+    <result column="enabled" jdbcType="INTEGER" property="enabled" />
+    <result column="time" jdbcType="TIMESTAMP" property="time" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `uid`, classity_id, content, imgs, praise_number, comment_number, view_number, 
+    anonymous, superior, enabled, `time`
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from topic_invitation
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from topic_invitation
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.wx.xybb.entity.TopicInvitation">
+    insert into topic_invitation (id, `uid`, classity_id, 
+      content, imgs, praise_number, 
+      comment_number, view_number, anonymous, 
+      superior, enabled, `time`
+      )
+    values (#{id,jdbcType=BIGINT}, #{uid,jdbcType=BIGINT}, #{classityId,jdbcType=BIGINT}, 
+      #{content,jdbcType=VARCHAR}, #{imgs,jdbcType=VARCHAR}, #{praiseNumber,jdbcType=INTEGER}, 
+      #{commentNumber,jdbcType=INTEGER}, #{viewNumber,jdbcType=INTEGER}, #{anonymous,jdbcType=INTEGER}, 
+      #{superior,jdbcType=INTEGER}, #{enabled,jdbcType=INTEGER}, #{time,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.wx.xybb.entity.TopicInvitation">
+    insert into topic_invitation
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="uid != null">
+        `uid`,
+      </if>
+      <if test="classityId != null">
+        classity_id,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+      <if test="imgs != null">
+        imgs,
+      </if>
+      <if test="praiseNumber != null">
+        praise_number,
+      </if>
+      <if test="commentNumber != null">
+        comment_number,
+      </if>
+      <if test="viewNumber != null">
+        view_number,
+      </if>
+      <if test="anonymous != null">
+        anonymous,
+      </if>
+      <if test="superior != null">
+        superior,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="classityId != null">
+        #{classityId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgs != null">
+        #{imgs,jdbcType=VARCHAR},
+      </if>
+      <if test="praiseNumber != null">
+        #{praiseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commentNumber != null">
+        #{commentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="viewNumber != null">
+        #{viewNumber,jdbcType=INTEGER},
+      </if>
+      <if test="anonymous != null">
+        #{anonymous,jdbcType=INTEGER},
+      </if>
+      <if test="superior != null">
+        #{superior,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wx.xybb.entity.TopicInvitation">
+    update topic_invitation
+    <set>
+      <if test="uid != null">
+        `uid` = #{uid,jdbcType=BIGINT},
+      </if>
+      <if test="classityId != null">
+        classity_id = #{classityId,jdbcType=BIGINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=VARCHAR},
+      </if>
+      <if test="imgs != null">
+        imgs = #{imgs,jdbcType=VARCHAR},
+      </if>
+      <if test="praiseNumber != null">
+        praise_number = #{praiseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commentNumber != null">
+        comment_number = #{commentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="viewNumber != null">
+        view_number = #{viewNumber,jdbcType=INTEGER},
+      </if>
+      <if test="anonymous != null">
+        anonymous = #{anonymous,jdbcType=INTEGER},
+      </if>
+      <if test="superior != null">
+        superior = #{superior,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        `time` = #{time,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wx.xybb.entity.TopicInvitation">
+    update topic_invitation
+    set `uid` = #{uid,jdbcType=BIGINT},
+      classity_id = #{classityId,jdbcType=BIGINT},
+      content = #{content,jdbcType=VARCHAR},
+      imgs = #{imgs,jdbcType=VARCHAR},
+      praise_number = #{praiseNumber,jdbcType=INTEGER},
+      comment_number = #{commentNumber,jdbcType=INTEGER},
+      view_number = #{viewNumber,jdbcType=INTEGER},
+      anonymous = #{anonymous,jdbcType=INTEGER},
+      superior = #{superior,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=INTEGER},
+      `time` = #{time,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
